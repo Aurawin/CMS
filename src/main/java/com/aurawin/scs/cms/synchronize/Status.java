@@ -5,19 +5,26 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Status {
+import static com.aurawin.scs.cms.synchronize.Controller.mainController;
+import static com.aurawin.scs.cms.synchronize.Controller.statusForm;
+import static com.aurawin.scs.cms.synchronize.DisplayMode.dmSettings;
+import static com.aurawin.scs.cms.synchronize.DisplayMode.dmStatus;
 
-    private JTable tblStatus;
+public class Status {
+    public JTable tblStatus;
     public JPanel mainPanel;
-    private JButton btnDisplay;
-    private JButton btnSettings;
-    private JButton btnStatus;
+    public JButton btnDisplay;
+    public JButton btnSettings;
+    public JButton btnStatus;
+    public JButton btnCurrent;
+    public JPanel pnlTop;
+    public JLabel lblTitle;
 
     private static FileStatusTableModel tableModel;
-    private DefaultTableCellRenderer Renderer;
-    private JPopupMenu puStatus;
-    private JMenuItem miStatusPause;
-    private JMenuItem miStatusCancel;
+    public DefaultTableCellRenderer Renderer;
+    public JPopupMenu puStatus;
+    public JMenuItem miStatusPause;
+    public JMenuItem miStatusCancel;
 
 
     public Status() {
@@ -30,7 +37,7 @@ public class Status {
         Renderer.setHorizontalAlignment(JLabel.CENTER);
 
         tblStatus.setModel(tableModel);
-
+        tblStatus.setRowSelectionAllowed(true);
         setColumnWidth(1,75);
         setColumnWidth(2,75);
 
@@ -55,8 +62,25 @@ public class Status {
 
         tblStatus.setComponentPopupMenu(puStatus);
 
+        btnSettings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.changeFrame(dmSettings);
+            }
+        });
+        btnStatus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.changeFrame(dmStatus);
+            }
+        });
+        btnDisplay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainController.setNavExpansion(!mainController.navRevealed);
+            }
+        });
     }
-
 
     private void setColumnWidth(int col, int width){
         tblStatus.getColumnModel().getColumn(col).setPreferredWidth(width);

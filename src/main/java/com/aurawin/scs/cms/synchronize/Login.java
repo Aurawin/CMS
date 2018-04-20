@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
+import static com.aurawin.scs.cms.synchronize.Controller.mainController;
+import static com.aurawin.scs.cms.synchronize.DisplayMode.dmStatus;
+
 public class Login {
     private JPasswordField passwordField1;
     private JTextField textField1;
@@ -16,14 +19,14 @@ public class Login {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.mainForm.changeFrame(Main.statusForm.mainPanel);
+                mainController.changeFrame(dmStatus);
 
             }
         });
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.frameMain.dispatchEvent(new WindowEvent(Main.frameMain, WindowEvent.WINDOW_CLOSING));
+                Controller.frameMain.dispatchEvent(new WindowEvent(Controller.frameMain, WindowEvent.WINDOW_CLOSING));
             }
         });
     }
